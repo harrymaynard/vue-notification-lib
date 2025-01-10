@@ -18,7 +18,7 @@
     "noImplicitAny": false,
     "sourceMap": true,
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
     "lib": [
       "esnext",
