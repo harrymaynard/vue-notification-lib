@@ -2,7 +2,7 @@
 import { useNotificationStore } from '../stores/NotificationStore'
 
 const props = defineProps({
-  queueKey: {
+  id: {
     type: String,
     required: true,
   }
@@ -12,5 +12,5 @@ const notificationStore = useNotificationStore()
 </script>
 
 <template>
-  <slot :messages="notificationStore.queues.get(props.queueKey)"></slot>
+  <slot :messages="notificationStore.queues.get(props.id)"></slot>
 </template>

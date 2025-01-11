@@ -13,10 +13,10 @@ export const useNotificationStore = defineStore('notification-store', () => {
    * @param queueKey 
    * @param message 
    */
-  const addMessage = (queueKey: string, message: any) => {
-    const queue = queues.value.get(queueKey) || []
+  const addMessage = (queueId: string, message: any) => {
+    const queue = queues.value.get(queueId) || []
     queue.push(message)
-    queues.value.set(queueKey, queue)
+    queues.value.set(queueId, queue)
   }
 
   /**
@@ -24,12 +24,12 @@ export const useNotificationStore = defineStore('notification-store', () => {
    * @param queueKey 
    * @param messageId 
    */
-  const removeMessage = (queueKey: string, messageId: any) => {
-    const queue = queues.value.get(queueKey) || []
+  const removeMessage = (queueId: string, messageId: any) => {
+    const queue = queues.value.get(queueId) || []
     const index = queue.findIndex((m) => m.id === messageId)
     if (index > -1) {
       queue.splice(index, 1)
-      queues.value.set(queueKey, queue)
+      queues.value.set(queueId, queue)
     }
   }
 
@@ -37,8 +37,8 @@ export const useNotificationStore = defineStore('notification-store', () => {
    * Clear all messages from the queue.
    * @param queueKey 
    */
-  const removeAllMessages = (queueKey: string) => {
-    queues.value.delete(queueKey)
+  const removeAllMessages = (queueId: string) => {
+    queues.value.delete(queueId)
   }
 
   return {

@@ -4,9 +4,11 @@
   "description": "",
   "type": "module",
   "main": "index.js",
+  "module": "./dist/NotificationLib.js",
+  "types": "./dist/NotificationLib.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/src/NotificationLib.d.ts",
+      "types": "./dist/NotificationLib.d.ts",
       "import": "./dist/NotificationLib.js",
       "require": "./dist/NotificationLib.umd.cjs"
     }
@@ -21,6 +23,7 @@
   "devDependencies": {
     "@types/node": "^22.10.5",
     "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "~5.7.3",
     "vite": "^6.0.7",
     "vite-plugin-eslint": "^1.8.1",
     "vue-tsc": "^2.2.0"

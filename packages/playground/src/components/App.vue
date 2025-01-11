@@ -1,18 +1,13 @@
 <script lang="ts" setup>
-import { onBeforeMount } from 'vue'
 import { NotificationProvider, useNotificationStore }  from 'lib'
 import AlertBox from './AlertBox.vue'
 
-const notificationQueueKey: string = 'my-notification-queue'
-let notificationStore
+const notificationStore = useNotificationStore()
 
-onBeforeMount(() => {
-  notificationStore = useNotificationStore()
-})
-
+const notificationQueueId: string = 'my-notification-queue'
 
 const handleClickAddMessage = () => {
-  notificationStore.addMessage(notificationQueueKey, {
+  notificationStore.addMessage(notificationQueueId, {
     id: Date.now(),
     text: 'This is a message',
   })
@@ -22,7 +17,7 @@ const handleClickAddMessage = () => {
 <template>
   <div>
     <NotificationProvider
-      :queueKey="notificationQueueKey"
+      :id="notificationQueueId"
       v-slot="{ messages }"
     >
       <AlertBox
