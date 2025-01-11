@@ -4,6 +4,7 @@
   "description": "## Setup",
   "main": "index.js",
   "scripts": {
+    "setup": "npm i --workspaces",
     "build": "npm run build --workspaces --if-present",
     "dev": "npm run dev --workspace=packages/playground"
   },
