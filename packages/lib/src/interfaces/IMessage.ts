@@ -1,6 +1,6 @@
 export interface IMessage {
   id: string
   type: string
-  message: string
+  text: string
   isClosable: boolean
 }

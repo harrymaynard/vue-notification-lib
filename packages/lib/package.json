@@ -13,6 +13,9 @@
       "require": "./dist/NotificationLib.umd.cjs"
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite --port 3000",
     "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
