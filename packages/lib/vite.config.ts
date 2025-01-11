@@ -21,6 +21,9 @@ export default defineConfig({
       // the proper extensions will be added
       fileName: 'NotificationLib',
     },
+    rollupOptions: {
+      external: ['vue', 'pinia'],
+    },
   },
   resolve: {
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],

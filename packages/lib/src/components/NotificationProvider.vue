@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useNotificationStore } from '@/stores/NotificationStore'
+import { useNotificationStore } from '../stores/NotificationStore'
 
 const props = defineProps({
   queueKey: {

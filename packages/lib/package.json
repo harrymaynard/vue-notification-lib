@@ -4,6 +4,13 @@
   "description": "",
   "type": "module",
   "main": "index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/src/NotificationLib.d.ts",
+      "import": "./dist/NotificationLib.js",
+      "require": "./dist/NotificationLib.umd.cjs"
+    }
+  },
   "scripts": {
     "dev": "vite --port 3000",
     "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",

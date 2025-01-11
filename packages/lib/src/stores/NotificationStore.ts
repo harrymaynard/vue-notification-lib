@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { type IMessage } from '@/interfaces/IMessage'
+import { type IMessage } from '../interfaces/IMessage'
 
 /**
  * Store for managing notifications.

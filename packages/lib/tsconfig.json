@@ -16,9 +16,6 @@
     "useDefineForClassFields": true,
     "noImplicitAny": false,
     "sourceMap": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    },
     "lib": [
       "esnext",
       "dom",
