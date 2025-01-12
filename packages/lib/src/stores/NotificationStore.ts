@@ -13,7 +13,7 @@ export const useNotificationStore = defineStore('notification-store', () => {
    * @param queueKey 
    * @param message 
    */
-  const addMessage = (queueId: string, message: any) => {
+  const addMessage = (queueId: string, message: IMessage) => {
     const queue = queues.value.get(queueId) || []
     queue.push(message)
     queues.value.set(queueId, queue)

@@ -1,7 +1,3 @@
-import { useNotificationStore } from './stores/NotificationStore'
-import NotificationProvider from './components/NotificationProvider.vue'
-
-export {
-  NotificationProvider,
-  useNotificationStore,
-}
+export { useNotificationStore } from './stores/NotificationStore'
+export { default as NotificationProvider } from './components/NotificationProvider.vue'
+export type { IMessage } from './interfaces/IMessage'
