@@ -10,7 +10,7 @@ export const useNotificationStore = defineStore('notification-store', () => {
 
   /**
    * Add a message to the queue.
-   * @param queueKey 
+   * @param queueId 
    * @param message 
    */
   const addMessage = (queueId: string, message: IMessage) => {
@@ -21,7 +21,7 @@ export const useNotificationStore = defineStore('notification-store', () => {
 
   /**
    * Remove a message from the queue.
-   * @param queueKey 
+   * @param queueId 
    * @param messageId 
    */
   const removeMessage = (queueId: string, messageId: any) => {
@@ -35,7 +35,7 @@ export const useNotificationStore = defineStore('notification-store', () => {
 
   /**
    * Clear all messages from the queue.
-   * @param queueKey 
+   * @param queueId 
    */
   const removeAllMessages = (queueId: string) => {
     queues.value.delete(queueId)

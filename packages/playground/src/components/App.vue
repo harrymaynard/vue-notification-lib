@@ -9,7 +9,6 @@ const notificationQueueId: string = 'my-notification-queue'
 const handleClickAddMessage = () => {
   notificationStore.addMessage(notificationQueueId, {
     text: 'This is a message',
-    foo: 'test',
   } as IMessage)
 }
 </script>

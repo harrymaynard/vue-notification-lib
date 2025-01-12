@@ -1,6 +1,6 @@
 export interface IMessage {
   text: string
-  id?: string
-  type?: string
-  isClosable?: boolean
+  id: string | undefined
+  type: string | undefined
+  isClosable: boolean | undefined
 }
