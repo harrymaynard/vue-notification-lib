@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { v4 as uuidv4 } from 'uuid'
 import { type IMessage } from '../interfaces/IMessage'
 
 /**
@@ -14,6 +15,9 @@ export const useNotificationStore = defineStore('notification-store', () => {
    * @param message 
    */
   const addMessage = (queueId: string, message: IMessage) => {
+    if (!message.id) {
+      message.id = uuidv4()
+    }
     const queue = queues.value.get(queueId) || []
     queue.push(message)
     queues.value.set(queueId, queue)
