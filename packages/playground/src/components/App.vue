@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import { NotificationProvider, useNotificationStore, type IMessage }  from 'lib'
+import { type Component } from 'vue'
+import { Notification, NotificationProvider, useNotificationStore, type IMessage, MessageType }  from 'lib'
 import AlertBox from './AlertBox.vue'
+import CustomNotification from './CustomNotification.vue'
 
 const notificationStore = useNotificationStore()
 
@@ -8,7 +10,8 @@ const notificationQueueId: string = 'my-notification-queue'
 
 const handleClickAddMessage = () => {
   notificationStore.addMessage(notificationQueueId, {
-    content: 'This is a message',
+    content: CustomNotification as Component,
+    type: MessageType.Component,
   } as IMessage)
 }
 </script>
@@ -19,12 +22,11 @@ const handleClickAddMessage = () => {
       :id="notificationQueueId"
       v-slot="{ messages }"
     >
-      <AlertBox
+      <Notification
         v-for="message in messages"
         :key="message.id"
-      >
-        {{ message.content }}
-      </AlertBox>
+        :message="message"
+      />
     </NotificationProvider>
     <button
       type="button"

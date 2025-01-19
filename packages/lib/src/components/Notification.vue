@@ -13,17 +13,17 @@ const props = defineProps({
 
 <template>
   <Component
-    v-if="message.type === MessageType.Component"
-    :is="message.content"
-    :message="message"
+    v-if="props.message.type === MessageType.Component"
+    :is="props.message.content"
+    :message="props.message"
   />
   <div
     v-else
     :class="[
       'alert',
-      'alert-' + message.level,
+      'alert-' + props.message.level,
     ]"
   >
-    {{ message.content }}
+    {{ props.message.content }}
   </div>
 </template>

@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, markRaw, type Component } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import { type IMessage } from '../interfaces/IMessage'
+import { MessageType } from '../enums/MessageType'
 
 /**
  * Store for managing notifications.
@@ -17,6 +18,9 @@ export const useNotificationStore = defineStore('notification-store', () => {
   const addMessage = (queueId: string, message: IMessage) => {
     if (!message.id) {
       message.id = uuidv4()
+    }
+    if (message.type === MessageType.Component) {
+      message.content = markRaw(message.content as Component)
     }
     const queue = queues.value.get(queueId) || []
     queue.push(message)
