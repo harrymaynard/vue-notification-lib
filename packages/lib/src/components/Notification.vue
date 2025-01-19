@@ -15,7 +15,8 @@ const props = defineProps({
   <Component
     v-if="props.message.messageType === MessageType.Component"
     :is="props.message.content.component"
-    :message="props.message"
+    :="props.message.content.props || {}"
+    @="props.message.content.emits || {}"
   />
   <div
     v-else

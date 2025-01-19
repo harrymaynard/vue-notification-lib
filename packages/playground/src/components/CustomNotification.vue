@@ -1,6 +1,15 @@
+<script lang="ts" setup>
+const props = defineProps({
+  text: {
+    type: String,
+    required: true,
+  }
+})
+</script>
+
 <template>
   <div class="custom-notification">
-    test
+    {{ props.text }}
   </div>
 </template>
 
