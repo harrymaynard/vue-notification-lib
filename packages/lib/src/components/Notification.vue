@@ -13,8 +13,8 @@ const props = defineProps({
 
 <template>
   <Component
-    v-if="props.message.type === MessageType.Component"
-    :is="props.message.content"
+    v-if="props.message.messageType === MessageType.Component"
+    :is="props.message.content.component"
     :message="props.message"
   />
   <div

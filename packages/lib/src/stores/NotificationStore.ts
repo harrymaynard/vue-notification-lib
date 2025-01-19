@@ -19,8 +19,8 @@ export const useNotificationStore = defineStore('notification-store', () => {
     if (!message.id) {
       message.id = uuidv4()
     }
-    if (message.type === MessageType.Component) {
-      message.content = markRaw(message.content as Component)
+    if (message.messageType === MessageType.Component && message.content.component) {
+      message.content.component = markRaw(message.content.component as Component)
     }
     const queue = queues.value.get(queueId) || []
     queue.push(message)

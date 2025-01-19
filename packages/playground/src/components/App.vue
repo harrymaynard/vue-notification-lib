@@ -10,8 +10,10 @@ const notificationQueueId: string = 'my-notification-queue'
 
 const handleClickAddMessage = () => {
   notificationStore.addMessage(notificationQueueId, {
-    content: CustomNotification as Component,
-    type: MessageType.Component,
+    content: {
+      component: CustomNotification as Component,
+    },
+    messageType: MessageType.Component,
   } as IMessage)
 }
 </script>
