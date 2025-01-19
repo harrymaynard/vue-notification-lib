@@ -8,7 +8,7 @@ const notificationQueueId: string = 'my-notification-queue'
 
 const handleClickAddMessage = () => {
   notificationStore.addMessage(notificationQueueId, {
-    text: 'This is a message',
+    content: 'This is a message',
   } as IMessage)
 }
 </script>
@@ -23,7 +23,7 @@ const handleClickAddMessage = () => {
         v-for="message in messages"
         :key="message.id"
       >
-        {{ message.text }}
+        {{ message.content }}
       </AlertBox>
     </NotificationProvider>
     <button
