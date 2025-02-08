@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { type Component, onMounted } from 'vue'
-import { Notification, NotificationProvider, useNotificationStore, type IMessage, MessageType }  from 'lib'
-import AlertBox from './AlertBox.vue'
+import { Notification, NotificationProvider, useNotificationStore, type IMessage, MessageType, createComponentMessage }  from 'lib'
 import CustomNotification from './CustomNotification.vue'
 
 const notificationStore = useNotificationStore()
@@ -18,13 +17,15 @@ onMounted(() => {
 })
 
 const handleClickAddMessage = () => {
-  notificationStore.addMessage(notificationQueueId, {
-    content: {
+  const message = createComponentMessage(
+    CustomNotification,
+    { 
       props: {
-        text: 'Hello World',
-      },
-    },
-  } as IMessage)
+        text: 'Hello, World!'
+      }
+    }
+  )
+  notificationStore.addMessage(notificationQueueId, message)
 }
 </script>
 

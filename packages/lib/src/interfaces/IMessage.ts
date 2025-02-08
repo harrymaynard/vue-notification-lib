@@ -2,9 +2,9 @@ import { type Component } from 'vue'
 import { MessageType } from '../enums/MessageType'
 
 export interface IMessage {
-  messageType: MessageType | undefined
+  messageType?: MessageType | undefined
   content: {
-    component: Component
+    component: Component | undefined
     props?: {
       [key: string]: any
     }
@@ -12,7 +12,7 @@ export interface IMessage {
       [key: string]: (...args: any[]) => void
     }
   }
-  id: string | undefined
+  id?: string | undefined
   level: string | undefined
   isClosable: boolean | undefined
 }
