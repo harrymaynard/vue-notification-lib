@@ -3,8 +3,5 @@ import { MessageType } from '../enums/MessageType'
 
 export interface INotificationConfig {
   messageType: MessageType
-  content: {
-    component?: Component | undefined
-    text?: string | undefined
-  } | undefined
+  component?: Component | undefined
 }

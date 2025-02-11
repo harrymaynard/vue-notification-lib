@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 import { ref, markRaw, type Component } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import { type IMessage } from '../interfaces/IMessage'
+import { type ITextMessage } from '../interfaces/ITextMessage'
+import { type IComponentMessage } from '../interfaces/IComponentMessage'
 import { type INotificationConfig } from '../interfaces/INotificationConfig'
 import { MessageType } from '../enums/MessageType'
 
@@ -12,9 +14,7 @@ export const useNotificationStore = defineStore('notification-store', () => {
   const queues = ref<Map<string, Array<IMessage>>>(new Map())
   const defaultConfig = ref<INotificationConfig>({
     messageType: MessageType.Text,
-    content: {
-      component: undefined,
-    },
+    component: undefined,
   })
 
   /**
@@ -22,7 +22,10 @@ export const useNotificationStore = defineStore('notification-store', () => {
    * @param queueId 
    * @param message 
    */
-  const addMessage = (queueId: string, message: IMessage) => {
+  const addMessage = (
+    queueId: string,
+    message: IComponentMessage | ITextMessage
+  ) => {
     if (!message.id) {
       message.id = uuidv4()
     }
@@ -32,9 +35,11 @@ export const useNotificationStore = defineStore('notification-store', () => {
       !message.messageType && defaultConfig.value.messageType === MessageType.Component
     ) {
       message.messageType = MessageType.Component
-      message.content.component = message.content.component
-        ? markRaw(message.content.component as Component)
-        : defaultConfig.value.content?.component as Component
+      // @ts-expect-error
+      message.component = !!message.component
+        // @ts-expect-error
+        ? markRaw(message.component as Component)
+        : defaultConfig.value?.component as Component
     }
     const queue = queues.value.get(queueId) || []
     queue.push(message)
@@ -68,8 +73,8 @@ export const useNotificationStore = defineStore('notification-store', () => {
    * @param config 
    */
   const configure = (config: INotificationConfig) => {
-    if (config.content?.component) {
-      config.content.component = markRaw(config.content.component as Component)
+    if (config?.component) {
+      config.component = markRaw(config.component as Component)
     }
     defaultConfig.value = config
   }

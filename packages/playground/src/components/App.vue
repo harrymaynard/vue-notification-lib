@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { type Component, onMounted } from 'vue'
-import { Notification, NotificationProvider, useNotificationStore, type IMessage, MessageType, createComponentMessage }  from 'lib'
+import { ComponentNotification, NotificationProvider, useNotificationStore, type IMessage, MessageType, createComponentMessage }  from 'lib'
 import CustomNotification from './CustomNotification.vue'
 
 const notificationStore = useNotificationStore()
@@ -35,7 +35,7 @@ const handleClickAddMessage = () => {
       :id="notificationQueueId"
       v-slot="{ messages }"
     >
-      <Notification
+      <ComponentNotification
         v-for="message in messages"
         :key="message.id"
         :message="message"

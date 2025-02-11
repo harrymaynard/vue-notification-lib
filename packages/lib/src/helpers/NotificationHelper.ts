@@ -1,19 +1,18 @@
 import { type Component } from 'vue'
 import { type IMessage } from '../interfaces/IMessage'
+import { type ITextMessage } from '../interfaces/ITextMessage'
+import { type IComponentMessage } from '../interfaces/IComponentMessage'
 import { LevelType } from '../enums/LevelType'
+import { MessageType } from '../enums/MessageType'
 
 export const createTextMessage = (
   text: string,
   level: LevelType = LevelType.Info,
   isClosable: boolean = true
-): IMessage => {
+): ITextMessage => {
   return {
-    content: {
-      component: undefined,
-      props: {
-        text,
-      },
-    },
+    messageType: MessageType.Text,
+    text,
     level,
     isClosable,
   }
@@ -21,19 +20,18 @@ export const createTextMessage = (
 
 export const createComponentMessage = (
   component: Component,
-  details: {
+  config: {
     props?: { [key: string]: any },
     emits?: { [key: string]: (...args: any[]) => void },
   } = {},
   level: LevelType = LevelType.Info,
   isClosable: boolean = true
-): IMessage => {
+): IComponentMessage => {
   return {
-    content: {
-      component,
-      props: details.props || {},
-      emits: details.emits || {},
-    },
+    messageType: MessageType.Component,
+    component,
+    props: config.props || {},
+    emits: config.emits || {},
     level,
     isClosable,
   }

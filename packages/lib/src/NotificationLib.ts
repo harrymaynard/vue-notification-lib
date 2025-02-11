@@ -1,5 +1,5 @@
 export { useNotificationStore } from './stores/NotificationStore'
-export { default as Notification } from './components/Notification.vue'
+export { default as ComponentNotification } from './components/ComponentNotification.vue'
 export { default as NotificationProvider } from './components/NotificationProvider.vue'
 export { createTextMessage, createComponentMessage } from './helpers/NotificationHelper'
 export type { IMessage } from './interfaces/IMessage'
