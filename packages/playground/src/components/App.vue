@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { type Component, onMounted } from 'vue'
-import { ComponentNotification, NotificationProvider, useNotificationStore, type IMessage, MessageType, createComponentMessage }  from 'lib'
+import { ComponentNotification, NotificationProvider, useNotificationStore, type IMessage, MessageType, createComponentMessage, createTextMessage }  from 'lib'
 import CustomNotification from './CustomNotification.vue'
 
 const notificationStore = useNotificationStore()
@@ -16,14 +16,21 @@ onMounted(() => {
   })
 })
 
-const handleClickAddMessage = () => {
+const handleClickAddComponentMessage = () => {
   const message = createComponentMessage(
     CustomNotification,
-    { 
+    {
       props: {
-        text: 'Hello, World!'
+        text: 'Component Hello World!'
       }
     }
+  )
+  notificationStore.addMessage(notificationQueueId, message)
+}
+
+const handleClickAddTextMessage = () => {
+  const message = createTextMessage(
+    'Text Hello World!'
   )
   notificationStore.addMessage(notificationQueueId, message)
 }
@@ -35,17 +42,33 @@ const handleClickAddMessage = () => {
       :id="notificationQueueId"
       v-slot="{ messages }"
     >
-      <ComponentNotification
+      <template
         v-for="message in messages"
         :key="message.id"
-        :message="message"
-      />
+      >
+        <ComponentNotification
+          v-if="message.messageType === MessageType.Component"
+          :message="message"
+        />
+        <CustomNotification
+          v-if="message.messageType === MessageType.Text"
+          :text="message.text"
+        />
+      </template>
+      
     </NotificationProvider>
     <button
       type="button"
-      @click="handleClickAddMessage"
+      @click="handleClickAddComponentMessage"
     >
-      Add Message
+      Add Component Message
+    </button>
+    &nbsp;
+    <button
+      type="button"
+      @click="handleClickAddTextMessage"
+    >
+      Add Text Message
     </button>
   </div>
 </template>
