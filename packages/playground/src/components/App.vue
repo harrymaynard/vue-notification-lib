@@ -29,9 +29,7 @@ const handleClickAddComponentMessage = () => {
 }
 
 const handleClickAddTextMessage = () => {
-  const message = createTextMessage(
-    'Text Hello World!'
-  )
+  const message = createTextMessage('Text Hello World!')
   notificationStore.addMessage(notificationQueueId, message)
 }
 </script>
@@ -55,7 +53,6 @@ const handleClickAddTextMessage = () => {
           :text="message.text"
         />
       </template>
-      
     </NotificationProvider>
     <button
       type="button"

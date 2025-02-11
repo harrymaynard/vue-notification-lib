@@ -7,9 +7,16 @@ import { MessageType } from '../enums/MessageType'
 
 export const createTextMessage = (
   text: string,
-  level: LevelType = LevelType.Info,
-  isClosable: boolean = true
+  options?: {
+    level?: LevelType,
+    isClosable?: boolean
+  }
 ): ITextMessage => {
+  const {
+    level = LevelType.Info,
+    isClosable = false
+  } = options || {}
+
   return {
     messageType: MessageType.Text,
     text,
@@ -20,18 +27,25 @@ export const createTextMessage = (
 
 export const createComponentMessage = (
   component: Component,
-  config: {
+  options?: {
     props?: { [key: string]: any },
     emits?: { [key: string]: (...args: any[]) => void },
-  } = {},
-  level: LevelType = LevelType.Info,
-  isClosable: boolean = true
+    level?: LevelType,
+    isClosable?: boolean
+  }
 ): IComponentMessage => {
+  const {
+    props = {},
+    emits = {},
+    level = LevelType.Info,
+    isClosable = false
+  } = options || {}
+
   return {
     messageType: MessageType.Component,
     component,
-    props: config.props || {},
-    emits: config.emits || {},
+    props,
+    emits,
     level,
     isClosable,
   }
