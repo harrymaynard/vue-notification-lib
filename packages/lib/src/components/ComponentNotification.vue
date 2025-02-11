@@ -2,7 +2,6 @@
 import { type PropType } from 'vue'
 import { MessageType } from '../enums/MessageType'
 import { IComponentMessage } from '../interfaces/IComponentMessage'
-import { ITextMessage } from '../interfaces/ITextMessage'
 
 const props = defineProps({
   message: {
