@@ -4,6 +4,7 @@ import { type ITextMessage } from '../interfaces/ITextMessage'
 import { type IComponentMessage } from '../interfaces/IComponentMessage'
 import { LevelType } from '../enums/LevelType'
 import { MessageType } from '../enums/MessageType'
+import { QueueType } from '../enums/QueueType'
 
 export const createTextMessage = (
   text: string,
@@ -18,6 +19,7 @@ export const createTextMessage = (
   } = options || {}
 
   return {
+    queueType: QueueType.Web,
     messageType: MessageType.Text,
     text,
     level,
@@ -42,11 +44,22 @@ export const createComponentMessage = (
   } = options || {}
 
   return {
+    queueType: QueueType.Web,
     messageType: MessageType.Component,
     component,
     props,
     emits,
     level,
     isClosable,
+  }
+}
+
+export const createNativeMessage = (
+  text: string,
+): ITextMessage => {
+  return {
+    queueType: QueueType.Native,
+    messageType: MessageType.Text,
+    text,
   }
 }
