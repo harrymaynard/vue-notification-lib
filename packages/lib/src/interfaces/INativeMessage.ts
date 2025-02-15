@@ -1,5 +1,5 @@
 import { type IMessage } from './IMessage'
 
-export interface ITextMessage extends IMessage {
+export interface INativeMessage extends IMessage {
   text: string
 }

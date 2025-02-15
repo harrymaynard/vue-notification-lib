@@ -4,8 +4,10 @@ import { v4 as uuidv4 } from 'uuid'
 import { type IMessage } from '../interfaces/IMessage'
 import { type ITextMessage } from '../interfaces/ITextMessage'
 import { type IComponentMessage } from '../interfaces/IComponentMessage'
+import { type INativeMessage } from '../interfaces/INativeMessage'
 import { type INotificationConfig } from '../interfaces/INotificationConfig'
 import { MessageType } from '../enums/MessageType'
+import { QueueType } from '../enums/QueueType'
 
 /**
  * Store for managing notifications.
@@ -23,12 +25,32 @@ export const useNotificationStore = defineStore('notification-store', () => {
    * @param message 
    */
   const addMessage = (
-    queueId: string,
-    message: IComponentMessage | ITextMessage
+    queueId: string | null,
+    message: IComponentMessage | ITextMessage | INativeMessage
   ) => {
     if (!message.id) {
       message.id = uuidv4()
     }
+
+    switch (message.queueType) {
+      case QueueType.Web:
+        addWebMessage(queueId as string, message as IComponentMessage | ITextMessage)
+        break
+
+      case QueueType.Native:
+        addNativeMessage(message as INativeMessage)
+        break
+
+      default:
+        throw new Error('Invalid queue type')
+    }
+  }
+
+  const addWebMessage = (
+    queueId: string,
+    message: IComponentMessage | ITextMessage
+  ) => {
+    if (!queueId) throw new Error('Queue ID is required')
 
     if (
       message.messageType === MessageType.Component ||
@@ -44,6 +66,29 @@ export const useNotificationStore = defineStore('notification-store', () => {
     const queue = queues.value.get(queueId) || []
     queue.push(message)
     queues.value.set(queueId, queue)
+  }
+
+  const addNativeMessage = (
+    message: ITextMessage
+  ) => {
+    if (!("Notification" in window)) {
+      // Check if the browser supports notifications
+      alert("This browser does not support desktop notification")
+    } else if (Notification.permission === "granted") {
+      // Check whether notification permissions have already been granted;
+      // if so, create a notification
+      const notification = new Notification(message.text)
+      // …
+    } else if (Notification.permission !== "denied") {
+      // We need to ask the user for permission
+      Notification.requestPermission().then((permission) => {
+        // If the user accepts, let's create a notification
+        if (permission === "granted") {
+          const notification = new Notification(message.text)
+          // …
+        }
+      })
+    }
   }
 
   /**

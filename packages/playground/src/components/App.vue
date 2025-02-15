@@ -1,6 +1,15 @@
 <script lang="ts" setup>
-import { type Component, onMounted } from 'vue'
-import { ComponentNotification, NotificationProvider, useNotificationStore, type IMessage, MessageType, createComponentMessage, createTextMessage }  from 'lib'
+import { onMounted } from 'vue'
+import {
+  ComponentNotification,
+  NotificationProvider,
+  useNotificationStore,
+  type ITextMessage,
+  MessageType,
+  createComponentMessage,
+  createTextMessage,
+  createNativeMessage
+}  from 'lib'
 import CustomNotification from './CustomNotification.vue'
 
 const notificationStore = useNotificationStore()
@@ -32,6 +41,11 @@ const handleClickAddTextMessage = () => {
   const message = createTextMessage('Text Hello World!')
   notificationStore.addMessage(notificationQueueId, message)
 }
+
+const handleClickAddNativeMessage = () => {
+  const message = createNativeMessage('Native Hello World!')
+  notificationStore.addMessage(null, message)
+}
 </script>
 
 <template>
@@ -49,8 +63,8 @@ const handleClickAddTextMessage = () => {
           :message="message"
         />
         <CustomNotification
-          v-if="message.messageType === MessageType.Text"
-          :text="message.text"
+          v-else-if="message.messageType === MessageType.Text"
+          :text="(message as ITextMessage).text"
         />
       </template>
     </NotificationProvider>
@@ -66,6 +80,13 @@ const handleClickAddTextMessage = () => {
       @click="handleClickAddTextMessage"
     >
       Add Text Message
+    </button>
+    &nbsp;
+    <button
+      type="button"
+      @click="handleClickAddNativeMessage"
+    >
+      Add Native Message
     </button>
   </div>
 </template>
