@@ -38,12 +38,16 @@ const handleClickAddComponentMessage = () => {
 }
 
 const handleClickAddTextMessage = () => {
-  const message = createTextMessage('Text Hello World!')
+  const message = createTextMessage('Text Hello World!', {
+    isClosable: true,
+  })
   notificationStore.addMessage(notificationQueueId, message)
 }
 
 const handleClickAddNativeMessage = () => {
-  const message = createNativeMessage('Native Hello World!')
+  const message = createNativeMessage('Native Hello World!', {
+    body: 'This is a native message body',
+  })
   notificationStore.addMessage(null, message)
 }
 </script>
@@ -90,3 +94,9 @@ const handleClickAddNativeMessage = () => {
     </button>
   </div>
 </template>
+
+<style lang="scss">
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+</style>

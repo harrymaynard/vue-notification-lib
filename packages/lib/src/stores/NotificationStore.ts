@@ -70,7 +70,7 @@ export const useNotificationStore = defineStore('notification-store', () => {
   }
 
   const addNativeMessage = (
-    message: ITextMessage
+    message: INativeMessage
   ) => {
     // Check if the browser supports notifications
     if (!('Notification' in window)) {
@@ -79,16 +79,14 @@ export const useNotificationStore = defineStore('notification-store', () => {
     // Check whether notification permissions have already been granted;
     // if so, create a notification.
     else if (Notification.permission === NativeNotificationPermissionType.Granted) {
-      const notification = new Notification(message.text, {
-        body: 'This is a notification from the Notification API',
-      })
+      const notification = new Notification(message.title, message.options)
     }
     else if (Notification.permission !== NativeNotificationPermissionType.Denied) {
       // We need to ask the user for permission.
       Notification.requestPermission().then((permission) => {
         // If the user accepts, let's create a notification.
         if (permission === NativeNotificationPermissionType.Granted) {
-          const notification = new Notification(message.text)
+          const notification = new Notification(message.title, message.options)
         }
       })
     }

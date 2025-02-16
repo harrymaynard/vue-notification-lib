@@ -15,7 +15,7 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .custom-notification {
-  background: linear-gradient(180deg, #f8d7da, #721c24);
+  background: #f8d7da;
   color: #721c24;
   padding: 1rem;
   border: 1px solid #721c24;

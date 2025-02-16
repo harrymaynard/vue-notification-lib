@@ -1,5 +1,7 @@
 import { type IMessage } from './IMessage'
+import { type INativeMessageOptions } from './INativeMessageOptions'
 
 export interface INativeMessage extends IMessage {
-  text: string
+  title: string
+  options?: INativeMessageOptions
 }

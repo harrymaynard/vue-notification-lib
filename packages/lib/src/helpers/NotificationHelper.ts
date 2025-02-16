@@ -1,7 +1,8 @@
 import { type Component } from 'vue'
-import { type IMessage } from '../interfaces/IMessage'
 import { type ITextMessage } from '../interfaces/ITextMessage'
 import { type IComponentMessage } from '../interfaces/IComponentMessage'
+import { type INativeMessage } from '../interfaces/INativeMessage'
+import { type INativeMessageOptions } from '../interfaces/INativeMessageOptions'
 import { LevelType } from '../enums/LevelType'
 import { MessageType } from '../enums/MessageType'
 import { QueueType } from '../enums/QueueType'
@@ -55,11 +56,13 @@ export const createComponentMessage = (
 }
 
 export const createNativeMessage = (
-  text: string,
-): ITextMessage => {
+  title: string,
+  options?: INativeMessageOptions
+): INativeMessage => {
   return {
     queueType: QueueType.Native,
     messageType: MessageType.Text,
-    text,
+    title,
+    options,
   }
 }
