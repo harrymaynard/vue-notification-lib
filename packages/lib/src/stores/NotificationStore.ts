@@ -8,6 +8,7 @@ import { type INativeMessage } from '../interfaces/INativeMessage'
 import { type INotificationConfig } from '../interfaces/INotificationConfig'
 import { MessageType } from '../enums/MessageType'
 import { QueueType } from '../enums/QueueType'
+import { NativeNotificationPermissionType } from '../enums/NativeNotificationPermissionType'
 
 /**
  * Store for managing notifications.
@@ -76,15 +77,17 @@ export const useNotificationStore = defineStore('notification-store', () => {
       console.error('This browser does not support desktop notification')
     }
     // Check whether notification permissions have already been granted;
-    // if so, create a notification
-    else if (Notification.permission === 'granted') {
-      const notification = new Notification(message.text)
+    // if so, create a notification.
+    else if (Notification.permission === NativeNotificationPermissionType.Granted) {
+      const notification = new Notification(message.text, {
+        body: 'This is a notification from the Notification API',
+      })
     }
-    else if (Notification.permission !== 'denied') {
-      // We need to ask the user for permission
+    else if (Notification.permission !== NativeNotificationPermissionType.Denied) {
+      // We need to ask the user for permission.
       Notification.requestPermission().then((permission) => {
-        // If the user accepts, let's create a notification
-        if (permission === 'granted') {
+        // If the user accepts, let's create a notification.
+        if (permission === NativeNotificationPermissionType.Granted) {
           const notification = new Notification(message.text)
         }
       })
