@@ -1,0 +1,24 @@
+name: Continuous Integration
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: '24'
+
+    - name: Install dependencies
+      run: npm run setup
+
+    - name: Build project assets
+      run: npm run build
